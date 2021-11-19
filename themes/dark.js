@@ -133,7 +133,7 @@ const overrides = {
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    "&$focused:not($error)": {
+                    "&.Mui-focused:not(.Mui-error)": {
                         color: theme.palette.secondary.main,
                     },
                 },
@@ -142,35 +142,25 @@ const overrides = {
         MuiFilledInput: {
             styleOverrides: {
                 root: {
-                    "&$focused": {
+                    "&.Mui-focused": {
                         backgroundColor: theme.palette.formInput.background,
-                        borderRadius: "0.4rem",
                     },
                 },
                 input: {
-                    borderRadius: "0.4rem",
                     backgroundColor: theme.palette.formInput.background,
-                    "&$disabled": {
-                        borderRadius: 0,
-                        backgroundColor: theme.palette.formInput.disabled,
-                    },
-                    '&:hover:before': {
-                        backgroundColor: theme.palette.formInput.background,
-                        borderRadius: "0.4rem",
-                    },
                 },
                 underline: {
                     '&:before': {
-                        borderBottom: `2px solid ${theme.palette.formInput.background}`
+                        borderBottom: "none"
                     },
                     '&:after': {
-                        borderBottom: `2px solid ${theme.palette.border.secondary.main}`,
+                        borderBottom: "none"
                     },
-                    "&$disabled:before": {
-                        borderBottom: `2px solid ${theme.palette.formInput.disabled}`
+                    "&.Mui-disabled:before": {
+                        borderBottom: "none"
                     },
                     '&:hover:before': {
-                        borderBottom: `2px solid ${theme.palette.formInput.background}`
+                        borderBottom: "none"
                     },
                 },
             },
@@ -233,8 +223,15 @@ const overrides = {
             styleOverrides: {
                 root: {
                     margin: "1rem",
+                    "& input:first-child": {
+                        borderRadius: "8px 0 0 8px",
+                    },
+                    "& button:last-child": {
+                        borderRadius: "0 8px 8px 0",
+                    },
                     "& button": {
-                        width: "8rem"
+                        width: "8rem",
+                        borderRadius: 0
                     }
                 },
             },

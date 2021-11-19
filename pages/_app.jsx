@@ -4,6 +4,7 @@ import { CookiesProvider } from "react-cookie";
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '@config/client';
 import { MessageProvider } from "@components/global/MessageSystem/Message";
+import { DomainProvider } from "@components/global/Domain";
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '@styles/createEmotionCache';
 import { ThemeProvider } from '@mui/material/styles';
@@ -17,6 +18,7 @@ const App = (props) => {
     const { Component, pageProps, emotionCache = clientSideEmotionCache } = props;
     const apolloClient = useApollo(pageProps);
     const [message, setMessage] = useState({ open: false, text: "", severity: "success" });
+    const [domain, setDomain] = useState("dlg");
 
     return (
         <CacheProvider value={emotionCache}>
@@ -27,9 +29,11 @@ const App = (props) => {
                     <CookiesProvider>
                         <ApolloProvider client={apolloClient}>
                             <MessageProvider value={{ message, setMessage }}>
-                                <Layout>
-                                    <Component {...pageProps} />
-                                </Layout>
+                                <DomainProvider value={{ domain, setDomain }}>
+                                    <Layout>
+                                        <Component {...pageProps} />
+                                    </Layout>
+                                </DomainProvider>
                             </MessageProvider>
                         </ApolloProvider>
                     </CookiesProvider>
