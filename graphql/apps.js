@@ -22,6 +22,15 @@ export const APPS = gql`
                 id
                 name
             }
+            devices {
+                id
+                name
+                image {
+                    url
+                    caption
+                    alternativeText
+                }
+            }
         }
     }
 `;

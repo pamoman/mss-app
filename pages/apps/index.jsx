@@ -8,13 +8,14 @@ import withJamfAuth from '@config/withJamfAuth';
 import { useQuery } from '@apollo/client';
 import { APPS } from "@graphql/apps";
 import Page from '@components/Page';
+import App from '@components/cards/App';
 import PamoBlockController from '@components/shared/PamoBlockController';
 import { Grid, Typography, Link as MuiLink, ButtonGroup, Button } from '@mui/material';
+import styles from '@styles/guides';
+
+const start = 0, limit = 10;
 
 const Apps = () => {
-    const [start, setStart] = useState(0);
-    const [limit, setLimit] = useState(10);
-
     /*---- Data query start ----*/
     const { loading, error, data } = useQuery(APPS, { variables: { start, limit } });
 
@@ -25,6 +26,17 @@ const Apps = () => {
 
     return (
         <Page>
+            <Typography component="h1" variant="h2" align="center" gutterBottom>Apps</Typography>
+
+            <Grid container spacing={0}>
+                {apps.map(app => {
+                    return (
+                        <Grid item css={styles.cardWrapper} xs={12} sm={6} md={4} key={app.id}>
+                            <App data={app} />
+                        </Grid>
+                    )
+                })}
+            </Grid>
         </Page>
     )
 };
@@ -34,7 +46,7 @@ export const getStaticProps = async (req, res) => {
 
     await apolloClient.query({
         query: APPS,
-        variables: { start: 0, limit: 10 }
+        variables: { start, limit }
     });
   
     return addApolloState(apolloClient, {
